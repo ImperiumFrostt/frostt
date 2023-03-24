@@ -1,0 +1,100 @@
+const Discord = require('discord.js');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
+const noblox = require('noblox.js');
+
+const client = new Discord.Client();
+const rest = new REST({ version: '9' }).setToken(ODg3MzIzNTIzNDAyNTk2NDAz.Gf7yfB.J5qfEaOG7DT7H-moQdtVvDdMzh1oqQgn7Z6PIk);
+
+const prefix = '!';
+const groupId = 9916658; // Replace with your Roblox group ID
+const ranks = {
+  'OR - 1 | Private': 1,
+  'OR - 2 | Lance Corporal': 2,
+  'OR - 4 | Sergeant': 3,
+  'OR - 7 | Staff Sergeant': 4,
+  'OR - 8 | Warrant Officer 2': 5,
+  'OR - 9 | Warrant Officer 1': 6,
+  'OF - D | Officer Cadet': 7,
+  'OF - 1 | 2nd Lieutenant': 8,
+  'OF - 1 | Lieutenant': 9,
+  'OF - 2 | Captain': 10,
+  'OF - 3 | Major': 11,
+  'OF - 4 | Lieutenant Colonel': 12,
+  'OF - 5 | Colonel': 13,
+  'OF - 6 | Brigadier': 14,
+  'OF - 7 | Major General': 15,
+  'OF - 8 | Lieutenant General': 16,
+  'OF - 9 | General': 17,
+  'OF - 10 | Field Marshal': 18,
+  'Deputy Chief of the General Staff': 19,
+  'Chief of the General Staff': 20,
+  'Chief of Defence Staff': 21,
+  'Commander in Chief': 22,
+  'Holder': 255
+};
+
+// Log in to the Roblox account
+noblox.setCookie(										
+_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_6777A683BC4D1A0B7A99B0D6BE69F2D996DDCA0E3B93567FC9174639E1C3EA6F61E4E0B1EE3AF78B72838418D8D77B72CD0D139160D117279B64CB353792B534CBD600B52AC838494C869F3E6B4CF8D9CFEBCFA5D8156B6BD68570BD60DF79BC17BD29B16902660C7B0759B806744359C6592E9BFCFEE0F5CF4D6771EABDF9BD4995602B8A466C358CA912FB74DE22D75A869C82F6F9A56196432FD379BB1110420D25B89F13B89C01AAB01150F016E07ABDB35D69DB04D5A3322517FC8CE72DD2C2DBBE8B6589D6807ED6F823DF89A25FB4A0F6826EE44DC47DD1672ECE2A76734D8A2633DC42ADA92BFB12A6083551B9A633AA3366303E90642625BF089C2A47DF4704E9C9B2034118B0CAB0370F4691117F230A18431AF5B689202EC92E80B780841B9035D7FA5C700CEADF309FF36F6DE736D51A41E29DCC47A38C0AC7E44DF841A499C0175598C3E280B22C4C85EA11DE4127859297CE7D6278E986E56FCFB92F2C238E1C09C61F02785966227F25EF3DEBBD08EFA3A9D1F3AB862A495EF0065C99)
+  .then(() => {
+    console.log('Logged in to Roblox');
+  });
+
+// Log in to the Discord bot
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}`);
+});
+
+// Slash command handling
+rest.put(Routes.applicationCommands(CLIENT_ID), {
+  body: [
+    {
+      name: 'rank',
+      description: 'Rank a user in the Roblox group',
+      options: [
+        {
+          name: 'username',
+          description: 'The username of the user to rank',
+          type: 'STRING',
+          required: true
+        },
+        {
+          name: 'rank',
+          description: 'The rank to give to the user',
+          type: 'STRING',
+          required: true,
+          choices: Object.keys(ranks).map(rankName => ({
+            name: rankName,
+            value: rankName
+          }))
+        }
+      ]
+    },
+    {
+      name: 'promote',
+      description: 'Promote a user in the Roblox group',
+      options: [
+        {
+          name: 'username',
+          description: 'The username of the user to promote',
+          type: 'STRING',
+          required: true
+        }
+      ]
+    },
+    {
+      name: 'demote',
+      description: 'Demote a user in the Roblox group',
+      options: [
+        {
+          name: 'username',
+          description: 'The username of the user to demote',
+          type: 'STRING',
+          required: true
+        }
+      ]
+    },
+    {
+      name: 'exile',
+      description: 'Exile a user from the Roblox
